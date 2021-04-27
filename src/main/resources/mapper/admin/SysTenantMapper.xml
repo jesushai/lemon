@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lemon.app.admin.mapper.SysTenantMapper">
+
+    <insert id="insertTenant" parameterType="com.lemon.app.admin.entity.SysTenant">
+        INSERT INTO sys_tenant (id_, name_, description_, modules_, active_)
+        VALUES (#{id},
+                #{name},
+                #{description},
+                #{modules, typeHandler=com.lemon.app.handler.JsonStringArrayTypeHandler},
+                #{active, jdbcType=BOOLEAN})
+    </insert>
+
+    <!--            CONCAT(-->
+    <!--                '[',-->
+    <!--                <foreach collection="modules" item="module" separator=",">-->
+    <!--                    #{module}-->
+    <!--                </foreach>,-->
+    <!--                ']'-->
+    <!--            ),-->
+
+    <resultMap id="sysTenantResultMap" type="com.lemon.app.admin.entity.SysTenant">
+        <id property="id" column="id_" jdbcType="BIGINT"/>
+        <result property="modules" column="modules_"
+                typeHandler="com.lemon.app.handler.JsonStringArrayTypeHandler"/>
+    </resultMap>
+
+    <select id="getAllTenant" resultType="com.lemon.app.admin.entity.SysTenant" resultMap="sysTenantResultMap">
+        SELECT * FROM sys_tenant WHERE active_ = 1;
+    </select>
+
+    <select id="getAllTenantId" resultType="java.lang.Long">
+        SELECT id_ FROM sys_tenant WHERE active_ = 1;
+    </select>
+</mapper>

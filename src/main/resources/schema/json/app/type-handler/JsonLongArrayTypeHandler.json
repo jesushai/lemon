@@ -1,0 +1,5 @@
+{
+  "name": "JsonLongArrayTypeHandler",
+  "comment": "Json转Long[]",
+  "packageName": "com.lemon.app.handler"
+}

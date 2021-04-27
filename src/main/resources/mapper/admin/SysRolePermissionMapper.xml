@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lemon.app.admin.mapper.SysRolePermissionMapper">
+
+    <sql id="selectRolePermissionDTOColumns">
+        SELECT DISTINCT id_ id, role_id_ roleId, permission_ permission
+    </sql>
+
+    <select id="selectAllRolePermissionByTenant" resultType="com.lemon.app.admin.dto.RolePermissionDTO">
+        <include refid="selectRolePermissionDTOColumns"/>
+        FROM sys_role_permission
+        WHERE tenant_ = #{tenant}
+        AND deleted_ = 0
+    </select>
+
+    <select id="countRolePermission" resultType="java.lang.Integer">
+        SELECT COUNT(1)
+        FROM sys_role_permission
+        WHERE tenant_ = #{tenant}
+          AND role_id_ = #{roleId}
+          AND permission_ = #{permission}
+          AND deleted_ = 0
+    </select>
+
+    <update id="removeAllByRoleIdAndPermissions">
+        UPDATE sys_role_permission SET deleted_ = 1
+        WHERE tenant_ = #{tenant}
+        AND role_id_ = #{roleId}
+        AND permission_ IN
+        <foreach collection="permissions" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        AND deleted_ = 0
+    </update>
+
+    <select id="selectAllPermission" resultType="java.lang.String">
+        SELECT DISTINCT permission_ permission
+        FROM sys_role_permission
+        WHERE deleted_ = 0
+    </select>
+
+    <select id="selectPermissionsByRoleId" resultType="com.lemon.app.admin.dto.RolePermissionDTO">
+        <include refid="selectRolePermissionDTOColumns"/>
+        FROM sys_role_permission
+        WHERE deleted_ = 0 AND role_id_ = #{roleId}
+    </select>
+
+    <insert id="bulkInsertRolePermission">
+        INSERT INTO sys_role_permission (id_, tenant_, role_id_, permission_, create_by_, create_name_by_,create_time_,
+        modified_by_, modified_name_by_, modified_time_)
+        VALUES
+        <foreach collection="permissions" item="permission" separator=",">
+            (#{permission.id},
+            #{tenant},
+            #{permission.roleId},
+            #{permission.permission},
+            #{permission.createBy},
+            #{permission.createNameBy},
+            #{permission.createTime},
+            #{permission.modifiedBy},
+            #{permission.modifiedNameBy},
+            #{permission.modifiedTime})
+        </foreach>
+    </insert>
+
+</mapper>

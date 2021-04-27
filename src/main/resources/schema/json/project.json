@@ -1,0 +1,29 @@
+{
+  "projectName": "lemon-app",
+  "projectPath": "E:/_FrameWork/Java/github/jesushai/lemon-boot/schemaql",
+  "entitySettings": {
+    "idType": "ASSIGN_ID",
+    "suffix": "Entity",
+    "versionColumn": "rev_",
+    "deletedColumn": "deleted_",
+    "tenantColumn": "tenant_",
+    "createTimeColumn": "create_time_",
+    "createByColumn": "create_by_",
+    "createNameByColumn": "create_name_by_",
+    "modifiedTimeColumn": "modified_time_",
+    "modifiedByColumn": "modified_by_",
+    "modifiedNameByColumn": "modified_name_by_"
+  },
+  "dataSources": [
+    {
+      "name": "lemon",
+      "url": "jdbc:mysql://ENC(edHI8lKYJgT1Zo+r+m9ZpQyTKjY49N4NZeJjff+y45XbGmfbJCp1Fo9Tpy3MaCrbIiizdHqjMM0h/2qykZHwfA==)/zy?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true&verifyServerCertificate=false&useSSL=false",
+      "driverName": "com.mysql.jdbc.Driver",
+      "username": "ENC(2YPT4O9fdwNk+2kwWrzOs10hIFAb4Ok1f2Bb3oqe4AmnZT3HnOcRHuhB91LBvAKA)",
+      "password": "ENC(q400Fvd/996XBHSGoZneYOF89p7nCZChLNBojpwmG97B/Nt9JZlAN2kJ1aw9gtet)"
+    }
+  ],
+  "modules": [
+    "app"
+  ]
+}

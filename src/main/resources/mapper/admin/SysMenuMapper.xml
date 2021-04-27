@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lemon.app.admin.mapper.SysMenuMapper">
+
+    <resultMap id="menuToPermissionResultMap" type="com.lemon.framework.auth.model.Permission">
+        <result property="id" column="code_" typeHandler="com.lemon.app.data.handler.JsonStringArrayTypeHandler"/>
+        <result property="api" column="action_uri_"/>
+    </resultMap>
+
+    <select id="selectMenuBySystemAndModuleAndCode" resultType="com.lemon.app.admin.entity.SysMenu">
+        SELECT *
+        FROM sys_menu
+        WHERE system_ = #{system}
+          AND module_ = #{module}
+          AND code_ = #{code}
+          AND deleted_ = 0
+    </select>
+
+    <select id="selectPermissionBySystem" resultMap="menuToPermissionResultMap">
+        SELECT DISTINCT m.code_, m.rank_, m.action_uri_
+        FROM sys_menu m,
+             sys_role_permission p
+        WHERE m.code_ = p.permission_
+          AND m.system_ = #{system}
+          AND m.deleted_ = 0
+          AND m.active_ = 1
+          AND p.tenant_ = #{tenant}
+          AND p.deleted_ = 0
+    </select>
+
+</mapper>

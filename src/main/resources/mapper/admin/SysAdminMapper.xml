@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lemon.app.admin.mapper.SysAdminMapper">
+
+    <sql id="selectSysAdminColumns">
+        SELECT id_,
+               rev_,
+               tenant_ tenant,
+               display_,
+               username_,
+               password_,
+               last_ip_,
+               last_login_,
+               avatar_,
+               role_ids_,
+               phone_,
+               identity_,
+               email_,
+               wechat_,
+               active_,
+               deleted_,
+               description_,
+               create_by_,
+               create_name_by_,
+               create_time_,
+               modified_by_,
+               modified_name_by_,
+               modified_time_
+    </sql>
+
+    <sql id="selectSysAdminByQueryCriteriaSql">
+        FROM sys_admin WHERE deleted_ = 0
+        <if test="example.id != null">
+            AND id_ = #{example.id}
+        </if>
+        <if test="example.username != null and example.username != ''">
+            AND username_ like CONCAT('%',#{example.username},'%')
+        </if>
+        <if test="example.display != null and example.display != ''">
+            AND display_ like CONCAT('%',#{example.display},'%')
+        </if>
+        <if test="example.phone != null and example.phone != ''">
+            AND phone_ = #{example.phone}
+        </if>
+        <if test="example.identity != null and example.identity != ''">
+            AND identity_ = #{example.identity}
+        </if>
+        <if test="example.email != null and example.email != ''">
+            AND email_ = #{example.email}
+        </if>
+        <if test="example.wechat != null and example.wechat != ''">
+            AND wechat_ = #{example.wechat}
+        </if>
+        <if test="example.active != null">
+            <choose>
+                <when test="example.active">
+                    AND active_ = 1
+                </when>
+                <otherwise>
+                    AND active_ = 0
+                </otherwise>
+            </choose>
+        </if>
+    </sql>
+
+    <resultMap id="sysAdminResultMap" type="com.lemon.app.admin.entity.SysAdmin">
+        <id property="id" column="id_" jdbcType="BIGINT"/>
+        <result property="roleIds" column="role_ids_"
+                typeHandler="com.lemon.app.handler.JsonLongArrayTypeHandler"/>
+    </resultMap>
+
+    <select id="selectPageByExample" resultType="com.lemon.app.admin.entity.SysAdmin"
+            parameterType="com.lemon.app.admin.entity.SysAdmin" resultMap="sysAdminResultMap">
+
+        <include refid="selectSysAdminColumns"/>
+        <include refid="selectSysAdminByQueryCriteriaSql"/>
+    </select>
+
+    <select id="selectListByUsernameAndTenant" resultType="com.lemon.app.admin.entity.SysAdmin"
+            resultMap="sysAdminResultMap">
+        <include refid="selectSysAdminColumns"/>
+        FROM sys_admin WHERE username_ = #{username} AND tenant_ = #{tenant} AND deleted_ = 0
+    </select>
+
+    <select id="selectListByUsername" resultType="com.lemon.app.admin.entity.SysAdmin" resultMap="sysAdminResultMap">
+        <include refid="selectSysAdminColumns"/>
+        FROM sys_admin WHERE username_ = #{username} AND deleted_ = 0
+    </select>
+
+    <insert id="insertAdmin" parameterType="com.lemon.app.admin.entity.SysAdmin">
+        INSERT INTO sys_admin (id_, tenant_, display_, username_, password_, last_ip_, last_login_, avatar_,
+                               role_ids_, phone_, identity_, email_, wechat_, active_, description_,
+                               create_by_, create_name_by_, create_time_, modified_by_, modified_name_by_,
+                               modified_time_)
+        VALUES (#{id}, #{tenant}, #{display}, #{username}, #{password}, #{lastIp}, #{lastLogin}, #{avatar},
+                #{roleIds, typeHandler=com.lemon.app.data.handler.JsonLongArrayTypeHandler},
+                #{phone}, #{identity}, #{email}, #{wechat}, #{active}, #{description},
+                #{createBy}, #{createNameBy}, #{createTime}, #{modifiedBy}, #{modifiedNameBy}, #{modifiedTime})
+    </insert>
+
+</mapper>

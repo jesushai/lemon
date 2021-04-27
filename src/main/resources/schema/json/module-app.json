@@ -1,0 +1,45 @@
+{
+  "moduleName": "app",
+  "modulePath": "",
+  "sourcesPath": "/src/main/java",
+  "resourcePath": "/src/main/resources",
+  "basePackage": "com.lemon.app",
+  "subModuleNames": [
+    "admin"
+  ],
+  "typeHandlers": [
+    "JsonLongArrayTypeHandler",
+    "JsonStringArrayTypeHandler"
+  ],
+  "entityBasePackage": "entity",
+  "mapperBasePackage": "mapper",
+  "entities": [
+    "SysCodingEntity"
+  ],
+  "valueObjectPackage": "vo",
+  "valueObjects": [],
+  "dtoPackage": "dto",
+  "dtoObjects": [],
+  "enumBasePackage": "enums",
+  "enums": [
+    "SysCodingTypeEnum"
+  ],
+  "validatorGroups": [
+    {
+      "packageName": "com.lemon.schemaql.validator",
+      "groupName": "CreateValidatedGroup",
+      "comment": "新建实体的验证",
+      "operationTypes": [
+        "create"
+      ]
+    },
+    {
+      "packageName": "com.lemon.schemaql.validator",
+      "groupName": "UpdateValidatedGroup",
+      "comment": "修改实体的验证",
+      "operationTypes": [
+        "update"
+      ]
+    }
+  ]
+}

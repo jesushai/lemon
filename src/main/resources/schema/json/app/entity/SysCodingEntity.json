@@ -1,0 +1,117 @@
+{
+  "tableName": "sys_coding",
+  "entityName": "SysCoding",
+  "display": "系统代码库",
+  "comment": "系统代码库",
+  "mapperName": "SysCodingMapper",
+  "xmlName": "SysCodingMapper",
+  "subModuleName": "admin",
+  "excludeTenant": false,
+  "headerHeight": 120.0,
+  "rowHeight": 80.0,
+  "permissionsDescriptions": [
+    {
+      "operationTypes": [
+        "create"
+      ],
+      "permissions": [
+        "admin:user:create"
+      ],
+      "menus": [
+        "%menu!admin|admin",
+        "%menu!admin|admin-user"
+      ],
+      "action": "%action!admin|user-create"
+    },
+    {
+      "operationTypes": [
+        "update"
+      ],
+      "permissions": [
+        "admin:user:update"
+      ],
+      "menus": [
+        "%menu!admin|admin",
+        "%menu!admin|admin-user"
+      ],
+      "action": "%action!admin|user-update"
+    },
+    {
+      "operationTypes": [
+        "delete"
+      ],
+      "permissions": [
+        "admin:user:delete"
+      ],
+      "menus": [
+        "%menu!admin|admin",
+        "%menu!admin|admin-user"
+      ],
+      "action": "%action!admin|user-delete"
+    }
+  ],
+  "aspects": {
+    "apiLogs": [
+      {
+        "operationType": "create",
+        "type": "BUSINESS",
+        "bizName": "%biz!admin|user",
+        "description": "%biz-desc!admin|user-create",
+        "args": [
+          "#user.username",
+          "#user.display"
+        ]
+      },
+      {
+        "operationType": "update",
+        "type": "BUSINESS",
+        "bizName": "%biz!admin|user",
+        "description": "%biz-desc!admin|user-update",
+        "args": [
+          "#user.id",
+          "#user.username",
+          "#user.display"
+        ]
+      },
+      {
+        "operationType": "delete",
+        "type": "BUSINESS",
+        "bizName": "%biz!admin|user",
+        "description": "%biz-desc!admin|user-delete",
+        "args": [
+          "#user.id",
+          "#user.username",
+          "#user.display"
+        ]
+      }
+    ]
+  },
+  "fields": [{
+    "name": "id",
+    "display": "ID",
+    "columnName": "id_",
+    "columnType": "bigint",
+    "comment": "主键",
+    "idFlag": true,
+    "type": "Long",
+    "editable": false,
+    "allowNull": false,
+    "validators": [
+      {
+        "message": "%NNAC-1101",
+        "groups": [
+          "UpdateValidatedGroup"
+        ],
+        "type": "NotNull"
+      }
+    ],
+    "allowFilter": false,
+    "render": {
+      "visible": false
+    }
+  }],
+  "options": {
+    "sortable": "date-,name",
+    "pageable": "true"
+  }
+}

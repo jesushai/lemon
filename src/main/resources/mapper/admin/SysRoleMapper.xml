@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lemon.app.admin.mapper.SysRoleMapper">
+
+    <insert id="insertRole">
+        INSERT INTO sys_role (id_, tenant_, system_, name_, description_, active_, create_by_,
+                              create_name_by_, create_time_, modified_by_, modified_name_by_, modified_time_)
+        VALUES (#{role.id, jdbcType=BIGINT},
+                #{tenant, jdbcType=BIGINT},
+                #{role.system, jdbcType=VARCHAR},
+                #{role.name, jdbcType=VARCHAR},
+                #{role.description, jdbcType=VARCHAR},
+                #{role.active, jdbcType=BOOLEAN},
+                #{role.createBy, jdbcType=BIGINT},
+                #{role.createNameBy, jdbcType=VARCHAR},
+                #{role.createTime, jdbcType=DATE},
+                #{role.modifiedBy, jdbcType=BIGINT},
+                #{role.modifiedNameBy, jdbcType=VARCHAR},
+                #{role.modifiedTime, jdbcType=DATE})
+    </insert>
+
+    <select id="selectOneByNameAndTenant" resultType="com.lemon.app.admin.entity.SysRole">
+        SELECT *
+        FROM sys_role
+        WHERE tenant_ = #{tenant}
+          AND name_ = #{name}
+          AND deleted_ = 0
+    </select>
+
+    <select id="selectListByIdInAndActiveIsTrue" resultType="com.lemon.app.admin.entity.SysRole">
+        SELECT * FROM sys_role WHERE id_ IN
+        <foreach collection="array" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+        AND deleted_ = 0 AND active_ = 1
+    </select>
+
+    <select id="selectRoleNameByIdIn" resultType="java.lang.String">
+        SELECT name_ FROM sys_role WHERE id_ IN
+        <foreach collection="collection" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="selectListByExample" resultType="com.lemon.app.admin.entity.SysRole">
+        SELECT * FROM sys_role WHERE deleted_ = 0
+        <if test="id != null">
+            AND id_ = #{id}
+        </if>
+        <if test="system != null and system != ''">
+            AND system_ = #{system}
+        </if>
+        <if test="name != null and name != ''">
+            AND name_ like CONCAT('%',#{name},'%')
+        </if>
+        <if test="active != null">
+            AND active_ = #{active}
+        </if>
+    </select>
+
+</mapper>
