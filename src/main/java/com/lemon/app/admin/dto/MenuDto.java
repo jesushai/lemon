@@ -18,7 +18,7 @@ import java.util.List;
 @Accessors(chain = true)
 public class MenuDto {
 
-    @NotNull(message = "NNAM-1003", groups = UpdateValidatedGroup.class)
+    @NotNull(message = "NNA-1139", groups = UpdateValidatedGroup.class)
     private Long id;
 
     /**

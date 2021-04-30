@@ -49,7 +49,7 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         SysAdmin user = baseMapper.selectById(id);
         if (null == user) {
             new ExceptionBuilder<>(NotFoundException.class)
-                    .code("NNAA-1009")
+                    .code("NNA-1009")
                     .args("" + id)
                     .throwIt();
         }
@@ -67,7 +67,7 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         user.setPassword(encode);
         int n = baseMapper.insert(user);
         if (n <= 0) {
-            new ExceptionBuilder<>().code("NNAA-1008").throwIt();
+            new ExceptionBuilder<>().code("NNA-1008").throwIt();
         }
         return user;
     }
@@ -88,11 +88,11 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         SysAdmin user = getAdminUserById(id);
         // 如果是本人修改则检查原密码
         if (myself && (!StringUtils.hasText(oldPassword) || !PasswordEncoderUtil.matches(oldPassword, user.getPassword()))) {
-            new ExceptionBuilder<>().code("NNAA-1011").throwIt();
+            new ExceptionBuilder<>().code("NNA-1011").throwIt();
         }
         // 密码一样则提示
         if (myself && oldPassword.equals(newPassword)) {
-            new ExceptionBuilder<>().code("NNAA-1013").throwIt();
+            new ExceptionBuilder<>().code("NNA-1013").throwIt();
         }
 
         // 验证新密码强度
@@ -108,7 +108,7 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
         entity.setPassword(encode);
         int n = baseMapper.updateById(entity);
         if (n <= 0) {
-            new ExceptionBuilder<>().code("NNAA-1008").throwIt();
+            new ExceptionBuilder<>().code("NNA-1008").throwIt();
         }
     }
 
@@ -130,7 +130,7 @@ public class SysAdminServiceImpl extends ServiceImpl<SysAdminMapper, SysAdmin> i
 
         int n = baseMapper.updateById(user);
         if (n <= 0) {
-            new ExceptionBuilder<>().code("NNAA-1008").throwIt();
+            new ExceptionBuilder<>().code("NNA-1008").throwIt();
         }
         user = baseMapper.selectById(user.getId());
         return user;

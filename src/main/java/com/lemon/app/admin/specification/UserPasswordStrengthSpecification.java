@@ -26,10 +26,10 @@ public class UserPasswordStrengthSpecification extends AbstractSpecification<Str
     public boolean isSatisfiedBy(String[] args) {
         String password = args[0];
         if (StringUtils.isBlank(password)) {
-            new ExceptionBuilder<>(NotAcceptableException.class).code("NNAA-1004").throwIt();
+            new ExceptionBuilder<>(NotAcceptableException.class).code("NNA-1004").throwIt();
         }
         if (password.length() < 8 || password.length() > 20) {
-            new ExceptionBuilder<>(NotAcceptableException.class).code("NNAA-1005").throwIt();
+            new ExceptionBuilder<>(NotAcceptableException.class).code("NNA-1005").throwIt();
         }
         // TODO:
         // 1. 是否启用强密码规则的开关
@@ -40,7 +40,7 @@ public class UserPasswordStrengthSpecification extends AbstractSpecification<Str
         // 2.4 不能包含用户的生日
         for (int i = 1; i < args.length; i++) {
             if (StringUtils.isNotEmpty(args[i]) && password.toLowerCase().contains(args[i].toLowerCase())) {
-                new ExceptionBuilder<>(NotAcceptableException.class).code("NNAA-1006").args(args[i]).throwIt();
+                new ExceptionBuilder<>(NotAcceptableException.class).code("NNA-1006").args(args[i]).throwIt();
             }
         }
         // ...

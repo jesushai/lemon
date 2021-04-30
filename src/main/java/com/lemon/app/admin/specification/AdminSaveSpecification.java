@@ -27,7 +27,7 @@ public class AdminSaveSpecification extends AbstractSpecification<SysAdmin> {
     @Override
     public boolean isSatisfiedBy(SysAdmin admin) {
         if (null == admin) {
-            new ExceptionBuilder<>(NotAcceptableException.class).code("NNAA-1001").throwIt();
+            new ExceptionBuilder<>(NotAcceptableException.class).code("NNA-1001").throwIt();
         }
 
         SysAdminMapper mapper = SpringContextUtils.getBean(SysAdminMapper.class);
@@ -41,7 +41,7 @@ public class AdminSaveSpecification extends AbstractSpecification<SysAdmin> {
                     .eq(SysAdmin::getUsername, admin.getUsername()));
             if (cnt > 0) {
                 new ExceptionBuilder<>(NotAcceptableException.class)
-                        .code("NNAA-1007")
+                        .code("NNA-1007")
                         .args(admin.getUsername())
                         .throwIt();
             }
@@ -52,13 +52,13 @@ public class AdminSaveSpecification extends AbstractSpecification<SysAdmin> {
             SysAdmin user = mapper.selectById(userId);
             if (null == user) {
                 new ExceptionBuilder<>(NotFoundException.class)
-                        .code("NNAA-1009")
+                        .code("NNA-1009")
                         .args("" + userId)
                         .throwIt();
             }
             if (!user.getActive()) {
                 new ExceptionBuilder<>()
-                        .code("NNAA-1010")
+                        .code("NNA-1010")
                         .args("" + userId)
                         .throwIt();
             }
@@ -71,7 +71,7 @@ public class AdminSaveSpecification extends AbstractSpecification<SysAdmin> {
             // 3. 修改了姓名，则检查不能为空
             if (null != admin.getDisplay()) {
                 if (StringUtils.isBlank(admin.getDisplay())) {
-                    new ExceptionBuilder<>(NotAcceptableException.class).code("NNAA-1003").throwIt();
+                    new ExceptionBuilder<>(NotAcceptableException.class).code("NNA-1003").throwIt();
                 }
             }
         }

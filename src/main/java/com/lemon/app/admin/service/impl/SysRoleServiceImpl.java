@@ -59,14 +59,14 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
                 .eq(SysRole::getSystem, AppComponentHolder.getSystemName())
                 .eq(SysRole::getName, role.getName())) > 0) {
             new ExceptionBuilder<>()
-                    .code("NNAR-1003")
+                    .code("NNA-1144")
                     .args(role.getName()).throwIt();
         }
 
         role.setSystem(AppComponentHolder.getSystemName());
         role.setActive(true);
         if (baseMapper.insert(role) <= 0) {
-            new ExceptionBuilder<>().code("NNAR-1004").throwIt();
+            new ExceptionBuilder<>().code("NNA-1145").throwIt();
         }
 
         return role;
@@ -79,7 +79,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         SysRole db = baseMapper.selectById(role.getId());
         if (null == db) {
             new ExceptionBuilder<>(NotFoundException.class)
-                    .code("NNAR-1005")
+                    .code("NNA-1146")
                     .args(role.getId())
                     .throwIt();
         }
@@ -89,7 +89,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         if (db.getActive() && null != role.getActive() && !role.getActive()) {
             if (ISysRoleService.SUPER_ADMIN_ROLE.equals(db.getName())) {
                 new ExceptionBuilder<>()
-                        .code("NNAR-1006")
+                        .code("NNA-1147")
                         .throwIt();
             }
         }
@@ -108,7 +108,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             }
 
             if (baseMapper.updateById(db) <= 0) {
-                new ExceptionBuilder<>().code("NNAR-1004").throwIt();
+                new ExceptionBuilder<>().code("NNA-1145").throwIt();
             }
         }
 

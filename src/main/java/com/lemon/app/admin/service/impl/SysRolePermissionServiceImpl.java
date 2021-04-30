@@ -62,7 +62,7 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
         // 只添加允许的授权，没有授权给租户则报错
         names.forEach(name -> {
             if (all.stream().noneMatch(r -> r.getPermission().equals(name))) {
-                new ExceptionBuilder<>().code("NNAR-1101").args(name).throwIt();
+                new ExceptionBuilder<>().code("NNA-1148").args(name).throwIt();
             }
             // 已经有权限就不再增加了
             if (baseMapper.countRolePermission(tenantId, roleId, name) <= 0) {
@@ -119,13 +119,13 @@ public class SysRolePermissionServiceImpl extends ServiceImpl<SysRolePermissionM
         SysRole role = sysRoleMapper.selectById(roleId);
         if (null == role) {
             new ExceptionBuilder<>(NotFoundException.class)
-                    .code("NNAR-1005")
+                    .code("NNA-1146")
                     .args(roleId)
                     .throwIt();
         }
         if (role.getName().equals(ISysRoleService.SUPER_ADMIN_ROLE)) {
             new ExceptionBuilder<>()
-                    .code("NNAR-1102")
+                    .code("NNA-1149")
                     .throwIt();
         }
 

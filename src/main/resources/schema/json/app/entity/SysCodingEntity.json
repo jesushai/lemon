@@ -98,7 +98,7 @@
     "allowNull": false,
     "validators": [
       {
-        "message": "%NNAC-1101",
+        "message": "%NNA-1136",
         "groups": [
           "UpdateValidatedGroup"
         ],

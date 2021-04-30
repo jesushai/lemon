@@ -25,5 +25,22 @@
   ],
   "modules": [
     "app"
-  ]
+  ],
+  "i18n": [
+    {
+      "path": "/src/main/resources/i18n",
+      "baseName": "messages",
+      "locales": [
+        "zh_CN", "en"
+      ]
+    },
+    {
+      "path": "/src/main/resources/i18n",
+      "baseName": "validation-messages",
+      "locales": [
+        "zh_CN", "en"
+      ]
+    }
+  ],
+  "i18nDefault": "zh_CN"
 }

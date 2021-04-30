@@ -101,7 +101,7 @@ public class SysAdminController {
         }
         // 管理员不能删除自己账号！
         if (user.getId().equals(AppComponentHolder.getPrincipalSafely().getId())) {
-            new ExceptionBuilder<>().code("NNAA-1012").throwIt();
+            new ExceptionBuilder<>().code("NNA-1012").throwIt();
         }
 
         adminService.deleteAdminUser(user.getId());

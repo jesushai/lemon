@@ -54,7 +54,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         SysMenu db = baseMapper.selectById(id);
         if (null == db) {
             new ExceptionBuilder<>(NotFoundException.class)
-                    .code("NNAM-1001")
+                    .code("NNA-1137")
                     .args(id)
                     .throwIt();
         }
@@ -76,7 +76,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         SysMenu db = baseMapper.selectById(menu.getId());
         if (null == db) {
             new ExceptionBuilder<>(NotFoundException.class)
-                    .code("NNAM-1001")
+                    .code("NNA-1137")
                     .args(menu.getId())
                     .throwIt();
         }
@@ -105,7 +105,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
 
         if (baseMapper.updateById(db) <= 0) {
-            new ExceptionBuilder<>().code("NNAM-1002").throwIt();
+            new ExceptionBuilder<>().code("NNA-1138").throwIt();
         }
 
         BeanUtils.copyProperties(db, menu);
