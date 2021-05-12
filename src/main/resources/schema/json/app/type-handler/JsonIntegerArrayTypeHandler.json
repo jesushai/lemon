@@ -1,0 +1,6 @@
+{
+  "name": "JsonIntegerArrayTypeHandler",
+  "comment": "Json转Integer[]",
+  "packageName": "com.lemon.app.handler",
+  "convertType": "Integer[]"
+}

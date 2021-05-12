@@ -1,6 +1,8 @@
 package com.lemon.schemaql.util;
 
+import com.lemon.framework.util.io.FileUtil;
 import com.lemon.schemaql.engine.helper.ProjectSchemaHelper;
+import com.lemon.schemaql.util.generator.ModuleCodeGenerator;
 
 import java.util.Optional;
 import java.util.Properties;
@@ -22,10 +24,11 @@ public class SchemaCodeGenerator {
         String projectPath = Optional
                 .ofNullable(properties.getProperty("project-path"))
                 .orElse(System.getProperty("user.dir"));
-        // 参数：schema json路径
-        String jsonPath = Optional
-                .ofNullable(properties.getProperty("schema-json-path"))
-                .orElse("src/main/resources/schema/json");
+        // 参数：schema相关文件的路径
+        // TODO: 资源相对路径
+        String schemaPath = Optional
+                .ofNullable(properties.getProperty("schema-path"))
+                .orElse("src/main/resources/schema");
         // 参数：指定模块
         String moduleName = Optional
                 .ofNullable(properties.getProperty("module-name"))
@@ -35,7 +38,9 @@ public class SchemaCodeGenerator {
                 .ofNullable(properties.getProperty("items"))
                 .orElse("");
 
-        ProjectSchemaHelper.load(projectPath + '/' + jsonPath);
+        ProjectSchemaHelper.load(FileUtil.mergePath(projectPath, schemaPath, "json"));
+
+        new ModuleCodeGenerator().generate(schemaPath);
     }
 
     private static Properties getArguments(String[] args) {

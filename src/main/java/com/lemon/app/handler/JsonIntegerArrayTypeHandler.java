@@ -11,41 +11,41 @@ import java.sql.SQLException;
 
 /**
  * <p>
- * Json转Long[]
+ * Json转Integer[]
  * <p>
  *
  * @author hai-zhang
  * @since 2021-05-11
  */
-public class JsonLongArrayTypeHandler extends BaseTypeHandler<Long[]> {
+public class JsonIntegerArrayTypeHandler extends BaseTypeHandler<Integer[]> {
 
     @Override
-    public void setNonNullParameter(PreparedStatement ps, int i, Long[] parameter, JdbcType jdbcType) throws SQLException {
+    public void setNonNullParameter(PreparedStatement ps, int i, Integer[] parameter, JdbcType jdbcType) throws SQLException {
         ps.setString(i, toJson(parameter));
     }
 
     @Override
-    public Long[] getNullableResult(ResultSet rs, String columnName) throws SQLException {
+    public Integer[] getNullableResult(ResultSet rs, String columnName) throws SQLException {
     return this.toObject(rs.getString(columnName));
     }
 
     @Override
-    public Long[] getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
+    public Integer[] getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
     return this.toObject(rs.getString(columnIndex));
     }
 
     @Override
-    public Long[] getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
+    public Integer[] getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
     return this.toObject(cs.getString(columnIndex));
     }
 
-    private String toJson(Long[] params) {
+    private String toJson(Integer[] params) {
         return JacksonUtils.toJson(params);
     }
 
-    private Long[] toObject(String content) {
+    private Integer[] toObject(String content) {
         if (null != content && !content.isEmpty()) {
-            return JacksonUtils.parseObject(content, Long[].class);
+            return JacksonUtils.parseObject(content, Integer[].class);
         } else {
             return null;
         }

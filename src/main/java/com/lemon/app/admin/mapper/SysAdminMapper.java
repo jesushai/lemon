@@ -1,10 +1,9 @@
 package com.lemon.app.admin.mapper;
 
 import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
-import com.baomidou.mybatisplus.annotation.SqlParser;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.lemon.app.admin.entity.SysAdmin;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

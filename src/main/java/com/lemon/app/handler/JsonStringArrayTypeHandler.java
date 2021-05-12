@@ -1,7 +1,6 @@
 package com.lemon.app.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.lang3.StringUtils;
+import com.lemon.framework.util.JacksonUtils;
 import org.apache.ibatis.type.BaseTypeHandler;
 import org.apache.ibatis.type.JdbcType;
 
@@ -11,15 +10,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * 名称：<p>
- * 描述：<p>
- * {@code <columnOverride column="urls" javaType="java.lang.String[]" typeHandler="JsonStringArrayTypeHandler"/>}
+ * <p>
+ * Json转String[]
+ * <p>
  *
  * @author hai-zhang
- * @since 2020/6/20
+ * @since 2021-05-11
  */
 public class JsonStringArrayTypeHandler extends BaseTypeHandler<String[]> {
-    private static final ObjectMapper mapper = new ObjectMapper();
 
     @Override
     public void setNonNullParameter(PreparedStatement ps, int i, String[] parameter, JdbcType jdbcType) throws SQLException {
@@ -28,39 +26,26 @@ public class JsonStringArrayTypeHandler extends BaseTypeHandler<String[]> {
 
     @Override
     public String[] getNullableResult(ResultSet rs, String columnName) throws SQLException {
-        return this.toObject(rs.getString(columnName));
+    return this.toObject(rs.getString(columnName));
     }
 
     @Override
     public String[] getNullableResult(ResultSet rs, int columnIndex) throws SQLException {
-        return this.toObject(rs.getString(columnIndex));
+    return this.toObject(rs.getString(columnIndex));
     }
 
     @Override
     public String[] getNullableResult(CallableStatement cs, int columnIndex) throws SQLException {
-        return this.toObject(cs.getString(columnIndex));
+    return this.toObject(cs.getString(columnIndex));
     }
 
     private String toJson(String[] params) {
-        try {
-            return mapper.writeValueAsString(params);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return "[]";
+        return JacksonUtils.toJson(params);
     }
 
     private String[] toObject(String content) {
-        if (content != null && !content.isEmpty()) {
-            try {
-                if (content.startsWith("[")) {
-                    return mapper.readValue(content, String[].class);
-                } else {
-                    return StringUtils.split(content, ',');
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
+        if (null != content && !content.isEmpty()) {
+            return JacksonUtils.parseObject(content, String[].class);
         } else {
             return null;
         }

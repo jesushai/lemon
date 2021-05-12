@@ -9,7 +9,8 @@
   ],
   "typeHandlers": [
     "JsonLongArrayTypeHandler",
-    "JsonStringArrayTypeHandler"
+    "JsonStringArrayTypeHandler",
+    "JsonIntegerArrayTypeHandler"
   ],
   "entityBasePackage": "entity",
   "mapperBasePackage": "mapper",

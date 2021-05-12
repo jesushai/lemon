@@ -1,0 +1,20 @@
+{
+  "enumName": "SysCodingTypeEnum",
+  "comment": "系统代码类型枚举",
+  "valueProperty": "value",
+  "displayProperty": "display",
+  "elements": [
+    {
+      "name": "SYSTEM",
+      "value": 0,
+      "display": "%ui.enum.sys-code-type.0",
+      "comment": "系统内置"
+    },
+    {
+      "name": "BUSINESS",
+      "value": 1,
+      "display": "%ui.enum.sys-code-type.1",
+      "comment": "业务定义"
+    }
+  ]
+}

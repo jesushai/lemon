@@ -1,5 +1,6 @@
 {
   "name": "JsonStringArrayTypeHandler",
   "comment": "Json转String[]",
-  "packageName": "com.lemon.app.handler"
+  "packageName": "com.lemon.app.handler",
+  "convertType": "String[]"
 }
