@@ -41,6 +41,14 @@
       "operationTypes": [
         "update"
       ]
+    },
+    {
+      "packageName": "com.lemon.schemaql.validator",
+      "groupName": "DeleteValidatedGroup",
+      "comment": "删除实体的验证",
+      "operationTypes": [
+        "delete"
+      ]
     }
   ]
 }
